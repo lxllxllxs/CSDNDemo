@@ -12,7 +12,7 @@ public class MainActivity extends FragmentActivity
 	private TabPageIndicator mIndicator ;
 	private ViewPager mViewPager ;
 	private FragmentPagerAdapter mAdapter ;
-
+	private static  int count=0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -25,7 +25,6 @@ public class MainActivity extends FragmentActivity
 		mAdapter = new MyAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mAdapter);
 		mIndicator.setViewPager(mViewPager, 0);
-
 
 
 	}
