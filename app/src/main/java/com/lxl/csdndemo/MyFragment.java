@@ -123,12 +123,9 @@ public class MyFragment extends Fragment implements CanRefreshLayout.OnRefreshLi
 		 protected Integer doInBackground(Integer... params) {
 			switch (1){
 				case LOAD_MORE:
-
-
 					break;
 				case LOAD_REFRESH:
 					refreshData();
-
 					break;
 				default:
 					break;
@@ -145,8 +142,6 @@ public class MyFragment extends Fragment implements CanRefreshLayout.OnRefreshLi
 		try {
 			List<NewsItem> newsItemList=newsItemBiz.getNewsItem(newsType,1);
 			mDatas=newsItemList;
-
-
 		} catch (CommonException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
