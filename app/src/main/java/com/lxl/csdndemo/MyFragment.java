@@ -28,7 +28,8 @@ public class MyFragment extends Fragment implements CanRefreshLayout.OnRefreshLi
 	private final  static String TAG="MF_Aty_Created";
 	private NewItemAdapter newItemAdapter;
 
-
+	private final static  int LOAD_REFRESH=1;
+	private final  static  int LOAD_MORE=2;
 	private int newsType = Constaint.NEW_TYPE_YEJIE;
 	private List<NewsItem> mDatas= new ArrayList<NewsItem>(); ;
 	private NewsItemBiz newsItemBiz;
@@ -99,7 +100,7 @@ public class MyFragment extends Fragment implements CanRefreshLayout.OnRefreshLi
 
 	@Override
 	public void onLoadMore() {
-		Log.d(TAG,"onLoadMore");
+
 	}
 
 	@Override
@@ -109,36 +110,48 @@ public class MyFragment extends Fragment implements CanRefreshLayout.OnRefreshLi
 	}
 
 	@TargetApi(Build.VERSION_CODES.CUPCAKE)
-	class asyncTask extends AsyncTask<Void,Void,Void>{
+	class asyncTask extends AsyncTask<Integer,Void,Integer>{
 
 		 @Override
-		 protected void onPostExecute(Void aVoid) {
+		 protected void onPostExecute(Integer result) {
 			 newItemAdapter.clear();
 			 newItemAdapter.addAll(mDatas);
-			newItemAdapter.notifyDataSetChanged();
-
+			 newItemAdapter.notifyDataSetChanged();
 		 }
 
 		 @Override
-		 protected Void doInBackground(Void... params) {
-
-			 try {
-//				 if (!(mDatas.isEmpty())) {
-//					 mDatas.clear();
-//				 }
-				 List<NewsItem> newsItemList=newsItemBiz.getNewsItem(newsType,1);
-				 mDatas=newsItemList;
-
-			 } catch (CommonException e) {
-				 e.printStackTrace();
-			 } catch (IOException e) {
-				 e.printStackTrace();
-			 }
+		 protected Integer doInBackground(Integer... params) {
+			switch (1){
+				case LOAD_MORE:
 
 
-			 return null;
+					break;
+				case LOAD_REFRESH:
+					refreshData();
+
+					break;
+				default:
+					break;
+			}
+
+
+
+			 return -1 ;
 		 }
 	 }
 
+
+	public  void refreshData(){
+		try {
+			List<NewsItem> newsItemList=newsItemBiz.getNewsItem(newsType,1);
+			mDatas=newsItemList;
+
+
+		} catch (CommonException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

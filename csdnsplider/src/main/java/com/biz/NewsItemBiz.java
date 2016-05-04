@@ -56,7 +56,7 @@ public class NewsItemBiz  {
 
 			}
 			Element content_ele = dl_ele.child(1);// dd
-			String content = content_ele.text();
+			String content =content_ele.text();
 			newsItem.setContent(content);
 			newsItemList.add(newsItem);
 		}
