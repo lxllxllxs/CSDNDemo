@@ -10,7 +10,7 @@ import java.net.URL;
 
 /**
  * Created by Administrator on 2016/4/29.
- * 不再使用 使用Jsoup中的connect
+ * 不再使用
  *
  *
  *
@@ -35,7 +35,7 @@ public class DataUtils {
 				int count;
 
 				while ((count=is.read(buff))!=-1){
-					sb.append(new String(buff,0,count,"utf-8"));
+					sb.append(new String(buff,0,count,"UTF-8"));
 				}
 
 			}else {

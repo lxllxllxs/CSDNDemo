@@ -1,10 +1,10 @@
 package com.lxl.csdndemo;
 
+import android.annotation.TargetApi;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +15,7 @@ import com.CommonException.CommonException;
 import com.bean.NewsItem;
 import com.biz.Constaint;
 import com.biz.NewsItemBiz;
+import com.canyinghao.canrefresh.CanRefreshLayout;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,23 +23,38 @@ import java.util.List;
 
 
 //@SuppressLint("ValidFragment")
-public class MyFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener
+public class MyFragment extends Fragment implements CanRefreshLayout.OnRefreshListener,CanRefreshLayout.OnLoadMoreListener
 {
-	private final  static String MyFragmentTAG="MyFragmentCreated";
+	private final  static String TAG="MF_Aty_Created";
 	private NewItemAdapter newItemAdapter;
+
+
 	private int newsType = Constaint.NEW_TYPE_YEJIE;
-	private List<NewsItem> mDatas = new ArrayList<NewsItem>();
-	private ListView lv;
+	private List<NewsItem> mDatas= new ArrayList<NewsItem>(); ;
 	private NewsItemBiz newsItemBiz;
-
-	private SwipeRefreshLayout swipeRefreshLayout;
-
+	private ListView listView ;
+	private CanRefreshLayout canRefreshLayout;
 	public MyFragment(){};
-
-	public MyFragment(int newsType)
-	{	Log.d(MyFragmentTAG,newsType+"");
+	public MyFragment(int newsType){
 		this.newsType = newsType;
 		newsItemBiz=new NewsItemBiz();
+
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+		View view= inflater.inflate(R.layout.myfragemt,container,false);
+		canRefreshLayout=(CanRefreshLayout)view.findViewById(R.id.mf_reflayout);
+		canRefreshLayout.setOnLoadMoreListener(this);
+		canRefreshLayout.setOnRefreshListener(this);
+		listView=(ListView)view.findViewById(R.id.can_content_view);
+		newItemAdapter=new NewItemAdapter(getContext(),mDatas);
+
+		listView.setAdapter(newItemAdapter);
+
+
+
+		return view;
 
 	}
 
@@ -47,38 +63,13 @@ public class MyFragment extends Fragment implements SwipeRefreshLayout.OnRefresh
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		swipeRefreshLayout=(SwipeRefreshLayout)getView().findViewById(R.id.myfragment_refreshlayout);
-		swipeRefreshLayout.setOnRefreshListener(this);
 
-		newItemAdapter=new NewItemAdapter(getContext(),mDatas);
-		lv=(ListView)getView().findViewById(R.id.myfragment_lv);
-		lv.setAdapter(newItemAdapter);
-
-		//getView().findViewById(R.id.testButton).setOnClickListener(onclicklistener);
-			new asyncTask().execute();
-	}
-
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
-		View view = inflater.inflate(R.layout.myfragemt, null);
-		return view;
+		new asyncTask().execute();
 	}
 
 
 
-	@Override
-	public void onRefresh() {
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				// 停止刷新
-				swipeRefreshLayout.setRefreshing(false);
-			}
-		}, 5000); // 5秒后发送消息，停止刷新
 
-	}
 
 	View.OnClickListener onclicklistener=new View.OnClickListener() {
 		@Override
@@ -106,12 +97,23 @@ public class MyFragment extends Fragment implements SwipeRefreshLayout.OnRefresh
 		}
 	};
 
+	@Override
+	public void onLoadMore() {
+		Log.d(TAG,"onLoadMore");
+	}
 
+	@Override
+	public void onRefresh() {
+		new asyncTask().execute();
+		canRefreshLayout.refreshComplete();
+	}
+
+	@TargetApi(Build.VERSION_CODES.CUPCAKE)
 	class asyncTask extends AsyncTask<Void,Void,Void>{
-
 
 		 @Override
 		 protected void onPostExecute(Void aVoid) {
+			 newItemAdapter.clear();
 			 newItemAdapter.addAll(mDatas);
 			newItemAdapter.notifyDataSetChanged();
 
@@ -121,6 +123,9 @@ public class MyFragment extends Fragment implements SwipeRefreshLayout.OnRefresh
 		 protected Void doInBackground(Void... params) {
 
 			 try {
+//				 if (!(mDatas.isEmpty())) {
+//					 mDatas.clear();
+//				 }
 				 List<NewsItem> newsItemList=newsItemBiz.getNewsItem(newsType,1);
 				 mDatas=newsItemList;
 

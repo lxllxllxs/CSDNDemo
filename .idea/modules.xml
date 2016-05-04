@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CSDNDemo.iml" filepath="$PROJECT_DIR$/CSDNDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/canrefresh/canrefresh.iml" filepath="$PROJECT_DIR$/canrefresh/canrefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/csdnsplider/csdnsplider.iml" filepath="$PROJECT_DIR$/csdnsplider/csdnsplider.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
     </modules>

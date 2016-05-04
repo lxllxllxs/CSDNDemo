@@ -24,4 +24,5 @@ public class CommonException extends  Exception {
 	public CommonException(Throwable cause) {
 		super(cause);
 	}
+
 }

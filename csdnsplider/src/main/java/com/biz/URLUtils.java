@@ -8,7 +8,7 @@ public class URLUtils {
 	public static final String NEWS_LIST_URL_YIDONG = "http://mobile.csdn.net/mobile";
 	public static final String NEWS_LIST_URL_YANFA = "http://sd.csdn.net/sd";
 	public static final String NEWS_LIST_URL_YUNJISUAN = "http://cloud.csdn.net/cloud";
-	public static final String NEWS_LIST_URL_ZAZHI = "http://programmer.csdn.net/programmer";
+	public static final String NEWS_LIST_URL_TOUTIAO = "http://geek.csdn.net/";
 	public static final String NEWS_LIST_URL_YEJIE = "http://news.csdn.net/news";
 
 	public  static  String  getUrl(int newType,int currentTag){
@@ -27,11 +27,12 @@ public class URLUtils {
 			case Constaint.NEW_TYPE_YUNSUAN:
 				url=NEWS_LIST_URL_YUNJISUAN;
 				break;
-			case Constaint.NEW_TYPE_ZAZHI:
-				url=NEWS_LIST_URL_ZAZHI;
-				break;
+		/*	case Constaint.NEW_TYPE_TOUTIAO:
+				url=NEWS_LIST_URL_TOUTIAO;
+				break;*/
 		}
 		url+="/"+currentTag;
+//		url=url+"/";
 		return url ;
 
 

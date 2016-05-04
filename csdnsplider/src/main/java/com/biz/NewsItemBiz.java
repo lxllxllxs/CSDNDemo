@@ -9,6 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,17 +18,15 @@ import java.util.List;
  */
 public class NewsItemBiz  {
 	public List<NewsItem> getNewsItem(int newsType , int currentPage) throws CommonException, IOException {
-		List<NewsItem> newsItemList=new ArrayList<NewsItem>();
-		NewsItem newsItem=null;
-		//取得连接
-		String url=URLUtils.getUrl(newsType,currentPage);
-		//取得连接里的内容
-	//	String urls=DataUtils.getString(url);
-		Document document=Jsoup.connect(url).get();
-		Elements units = document.getElementsByClass("unit");//从哪里开始
-		System.out.print(units.size()+"");
-		for (int i = 0; i < units.size(); i++)
-		{
+		String urlStr = URLUtils.getUrl(newsType, currentPage);
+//		String htmlStr = DataUtils.getString(urlStr);
+
+		List<NewsItem> newsItemList = new ArrayList<NewsItem>();
+		NewsItem newsItem = null;
+
+		Document doc = Jsoup.parse(new URL(urlStr).openStream(), "UTF-8", urlStr);
+				Elements units = doc.getElementsByClass("unit");
+		for (int i = 0; i < units.size(); i++) {
 			newsItem = new NewsItem();
 			newsItem.setNewsType(newsType);
 
@@ -49,21 +48,19 @@ public class NewsItemBiz  {
 
 			Element dl_ele = unit_ele.getElementsByTag("dl").get(0);// dl
 			Element dt_ele = dl_ele.child(0);// dt
-			try
-			{// 可能没有图片
+			try {// 可能没有图片
 				Element img_ele = dt_ele.child(0);
 				String imgLink = img_ele.child(0).attr("src");
 				newsItem.setImgLink(imgLink);
-			} catch (IndexOutOfBoundsException e)
-			{
+			} catch (IndexOutOfBoundsException e) {
+
 			}
 			Element content_ele = dl_ele.child(1);// dd
 			String content = content_ele.text();
 			newsItem.setContent(content);
 			newsItemList.add(newsItem);
 		}
-
-		return  newsItemList;
+			return  newsItemList;
 	}
 
 

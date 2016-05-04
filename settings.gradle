@@ -1,2 +1,2 @@
-include ':app', ':csdnsplider'
+include ':app', ':csdnsplider', ':canrefresh'
 include ':library'
