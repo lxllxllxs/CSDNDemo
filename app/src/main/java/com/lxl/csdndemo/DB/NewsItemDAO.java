@@ -57,17 +57,13 @@ public class NewsItemDAO {
 		int offset=10*(currentPage-1);//缓存多少条记录
 		SQLiteDatabase db=dbHelper.getWritableDatabase();
 		String sql ="select title ,content ,link ,_date ,imgLink ,newstype from tb_newsItem where newstype=? limit ?,?";
-		Cursor cs=db.rawQuery(sql,new String[]{
-				newsType+"'",
-				offset+"",
-				""+(offset+10)
-		});
+		Cursor cs=db.rawQuery(sql,new String[]{""+newsType,""+offset,""+offset+10});
+
 
 		List<NewsItem> newsItemList=new ArrayList<NewsItem>();
 
 		while (cs.moveToNext()){
 			newsItem=new NewsItem();
-
 			String title=cs.getString(0);
 			String content=cs.getString(1);
 			String link=cs.getString(2);
@@ -80,7 +76,8 @@ public class NewsItemDAO {
 			newsItem.setLink(link);
 			newsItem.setDate(date);
 			newsItem.setImgLink(imgLink);
-			newsItem.setNewsType(newsType);
+			newsItem.setNewsType(newstype);
+
 			newsItemList.add(newsItem);
 		}
 		cs.close();

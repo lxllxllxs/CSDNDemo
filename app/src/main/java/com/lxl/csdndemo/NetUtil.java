@@ -10,7 +10,7 @@ import android.net.NetworkInfo;
  *
  */
 public class NetUtil {
-		public boolean isConnected(Context context){
+		public static boolean isConnected(Context context){
 			if (isWIFIConnected(context)||isMobileConnected(context)){
 				return true;
 			}

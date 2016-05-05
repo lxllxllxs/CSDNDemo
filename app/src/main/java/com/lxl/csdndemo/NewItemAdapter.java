@@ -39,7 +39,6 @@ public class NewItemAdapter extends BaseAdapter {
 				.cacheOnDisc().displayer(new RoundedBitmapDisplayer(20)).displayer(new FadeInBitmapDisplayer(300))
 				.build();
 
-
 	//	add();
 	}
 
@@ -79,6 +78,12 @@ public class NewItemAdapter extends BaseAdapter {
 		NewItemList.addAll(mdata);
 	}
 
+	public void setData(List<NewsItem> mdata){
+		NewItemList.clear();
+		NewItemList.addAll(mdata);
+	}
+
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder viewHolder=null;
@@ -110,7 +115,6 @@ public class NewItemAdapter extends BaseAdapter {
 
 		return convertView ;
 	}
-
 
 
 

@@ -3,7 +3,7 @@ package com.CommonException;
 /**
  * Created by Administrator on 2016/4/29.
  */
-public class CommonException extends  Exception {
+public class CommonException extends  Exception  {
 
 	protected CommonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
@@ -24,5 +24,7 @@ public class CommonException extends  Exception {
 	public CommonException(Throwable cause) {
 		super(cause);
 	}
+
+
 
 }

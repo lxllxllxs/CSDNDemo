@@ -3,7 +3,10 @@ package com.lxl.csdndemo;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
+import com.bean.NewsItem;
 import com.lxl.csdndemo.DB.NewsItemDAO;
+
+import java.util.List;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
@@ -25,9 +28,8 @@ public  void test1(){
 
 	public  void test2(){
 		NewsItemDAO dao=new NewsItemDAO(getContext());
-
-		dao.deleteAll(1);
-
+		List<NewsItem> newsItemList=dao.query(0,1);
+		System.out.print(newsItemList.size()+"");
 
 	}
 

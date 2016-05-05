@@ -3,7 +3,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 
 import com.viewpagerindicator.TabPageIndicator;
 
@@ -28,8 +27,6 @@ public class MainActivity extends FragmentActivity
 		mAdapter = new MyAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mAdapter);
 		mIndicator.setViewPager(mViewPager, 0);
-		Log.d(TAG,count+"'");
-		count++;
 
 	}
 

@@ -1,6 +1,20 @@
 package com.bean;
 
 public class  NewsItem  {
+	public  NewsItem(){}
+
+	public  NewsItem(String title,String content,String link,String date,String imgLink,int newsType){
+		this.title=title;
+		this.content=content;
+		this.link=link;
+		this.date=date;
+		this.imgLink=imgLink;
+		this.newsType=newsType;
+	}
+
+
+
+
 	public int getNewsType() {
 		return newsType;
 	}
