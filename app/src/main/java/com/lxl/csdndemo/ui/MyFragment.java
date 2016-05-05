@@ -1,6 +1,7 @@
-package com.lxl.csdndemo;
+package com.lxl.csdndemo.ui;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,6 +20,9 @@ import com.biz.Constaint;
 import com.biz.NewsItemBiz;
 import com.canyinghao.canrefresh.CanRefreshLayout;
 import com.lxl.csdndemo.DB.NewsItemDAO;
+import com.lxl.csdndemo.NetUtil;
+import com.lxl.csdndemo.R;
+import com.lxl.csdndemo.adapter.NewItemAdapter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -75,6 +80,7 @@ public class MyFragment extends Fragment implements CanRefreshLayout.OnRefreshLi
 		canRefreshLayout.setOnRefreshListener(this);
 		listView=(ListView)view.findViewById(R.id.can_content_view);
 		listView.setAdapter(newItemAdapter);
+		listView.setOnItemClickListener(itemClickListener);
 		newItemAdapter=new NewItemAdapter(getContext(),mDatas);
 		onRefresh();
 
@@ -86,6 +92,21 @@ public class MyFragment extends Fragment implements CanRefreshLayout.OnRefreshLi
 		canRefreshLayout.loadMoreComplete();
 
 	}
+
+	private AdapterView.OnItemClickListener itemClickListener=new AdapterView.OnItemClickListener() {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			//Toast.makeText(getContext(),position+"",Toast.LENGTH_SHORT).show();
+			NewsItem nItem=mDatas.get(position);
+			String url=nItem.getLink();
+			Intent intent=new Intent(getContext(),WebView.class);
+			intent.putExtra("url",url);
+			startActivity(intent);
+
+		}
+	};
+
+
 
 	@Override
 	public void onRefresh() {
@@ -136,6 +157,7 @@ public class MyFragment extends Fragment implements CanRefreshLayout.OnRefreshLi
 		if (isLoadFromNetWork){
 			try {
 				List<NewsItem> newslist=newsItemBiz.getNewsItem(newsType,currentPage);
+				mDatas=newslist;
 				newsItemDAO.deleteAll(newsType);
 				newsItemDAO.add(newslist);
 				newItemAdapter.setData(newslist);
@@ -167,11 +189,13 @@ public class MyFragment extends Fragment implements CanRefreshLayout.OnRefreshLi
 			isLoadFromNetWork=true;
 			try {
 				List<NewsItem> newsItemList = newsItemBiz.getNewsItem(newsType, currentPage);
-				newItemAdapter.setData(newsItemList);
+
+				mDatas=newsItemList;
+				newItemAdapter.setData(mDatas);
 				//清除数据库
 				newsItemDAO.deleteAll(newsType);
 				//向数据库装入数据
-				newsItemDAO.add(newsItemList);
+				newsItemDAO.add(mDatas);
 
 			} catch (CommonException e) {
 				e.printStackTrace();

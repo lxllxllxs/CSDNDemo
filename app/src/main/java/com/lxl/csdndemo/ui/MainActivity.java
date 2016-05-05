@@ -1,9 +1,11 @@
-package com.lxl.csdndemo;
+package com.lxl.csdndemo.ui;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.lxl.csdndemo.R;
+import com.lxl.csdndemo.adapter.MyAdapter;
 import com.viewpagerindicator.TabPageIndicator;
 
 

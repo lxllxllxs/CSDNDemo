@@ -1,8 +1,10 @@
-package com.lxl.csdndemo;
+package com.lxl.csdndemo.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.lxl.csdndemo.ui.MyFragment;
 
 /**
  * Created by Administrator on 2016/4/29.
