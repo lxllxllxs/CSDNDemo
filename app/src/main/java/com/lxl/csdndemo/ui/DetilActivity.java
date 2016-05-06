@@ -10,7 +10,7 @@ import com.lxl.csdndemo.R;
 /**
  * Created by Administrator on 2016/5/5.
  */
-public class WebView extends Activity {
+public class DetilActivity extends Activity {
 	private String url;
 	private android.webkit.WebView webView;
 	@Override

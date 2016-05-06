@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.CommonException.CommonException;
 import com.bean.NewsItem;
@@ -96,10 +95,9 @@ public class MyFragment extends Fragment implements CanRefreshLayout.OnRefreshLi
 	private AdapterView.OnItemClickListener itemClickListener=new AdapterView.OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			//Toast.makeText(getContext(),position+"",Toast.LENGTH_SHORT).show();
 			NewsItem nItem=mDatas.get(position);
 			String url=nItem.getLink();
-			Intent intent=new Intent(getContext(),WebView.class);
+			Intent intent=new Intent(getContext(),DetilActivity.class);
 			intent.putExtra("url",url);
 			startActivity(intent);
 
