@@ -177,8 +177,6 @@ public class MyFragment extends Fragment implements CanRefreshLayout.OnRefreshLi
 
 
 
-
-
 	public  int refreshData() {
 		newsItemDAO=new NewsItemDAO(getContext());
 		//有无网络，有则从网络加载，无则从数据库加载

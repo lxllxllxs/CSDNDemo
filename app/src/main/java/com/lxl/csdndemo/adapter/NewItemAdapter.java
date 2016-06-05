@@ -88,7 +88,6 @@ public class NewItemAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder viewHolder=null;
-		StringBuffer sb=new StringBuffer();
 		if(convertView==null){
 			convertView=mInflater.inflate(R.layout.list_item_layout,null);
 			viewHolder=new ViewHolder();

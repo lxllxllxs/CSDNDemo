@@ -14,9 +14,7 @@ public class MainActivity extends FragmentActivity
 	private TabPageIndicator mIndicator ;
 	private ViewPager mViewPager ;
 	private FragmentPagerAdapter mAdapter ;
-	private   int count=0;
 
-	private  static final String TAG="MainActivity_Oncreate";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
